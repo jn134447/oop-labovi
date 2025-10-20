@@ -3,7 +3,7 @@
 
 struct Vector {
 	int *arr;
-	int size;
+	int len;
 	int alloc_size;
 };
 

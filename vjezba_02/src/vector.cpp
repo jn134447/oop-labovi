@@ -3,7 +3,7 @@
 void Vector::vector_new() {
 	Vector::alloc_size = 10;
 	Vector::arr = new int[Vector::alloc_size];
-	Vector::size = 0;
+	Vector::len = 0;
 }
 
 void Vector::vector_delete() {
@@ -11,6 +11,6 @@ void Vector::vector_delete() {
 }
 
 void Vector::vector_push_back(int elem) {
-	Vector::arr[Vector::size] = elem;
-	Vector::size += 1;
+	Vector::arr[Vector::len] = elem;
+	Vector::len += 1;
 }
