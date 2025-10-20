@@ -1,5 +1,5 @@
 #include <iostream>
-#include "vector.h"
+#include "../include/vector.h"
 
 using namespace std;
 

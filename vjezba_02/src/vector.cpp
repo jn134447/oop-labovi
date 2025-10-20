@@ -1,4 +1,4 @@
-#include "vector.h"
+#include "../include/vector.h"
 
 void Vector::vector_new() {
 	Vector::alloc_size = 10;
