@@ -35,16 +35,6 @@ void print_student(Student &student) {
 
 inline void increment_year(Student &student) { student.year++; }
 
-inline bool passed_an_exam(Student &student) {
-  return (student.GPA != 0) ? true : false;
-}
-inline bool GPA_higher_than_3_point_5(Student &student) {
-  return (student.GPA > 3.5) ? true : false;
-}
-inline bool ECTS_45_or_higher(Student &student) {
-  return (student.ECTS >= 45) ? true : false;
-}
-
 int main() {
   Student students[] = {
       {"name_1", "AAAAAAAAAA", 1, 0, 0},
@@ -57,6 +47,15 @@ int main() {
   auto print_students = [&students]() {
     for (auto &student : students)
       print_student(student);
+  };
+  auto passed_an_exam = [](Student &student) {
+    return (student.GPA != 0) ? true : false;
+  };
+  auto GPA_higher_than_3_point_5 = [](Student &student) {
+    return (student.GPA > 3.5) ? true : false;
+  };
+  auto ECTS_45_or_higher = [](Student &student) {
+    return (student.ECTS >= 45) ? true : false;
   };
 
   std::cout << "svi studenti: " << std::endl;
@@ -76,6 +75,8 @@ int main() {
 
   // Povećanje broja godine studija (akcija) studenata koji su položili barem 45
   // ETCS bodova (uvjet).
-  std::cout << "povecanje godine studenata sa ECTS priko 45: " << std::endl;
+  std::cout << "povecanje godine studenata sa ECTS priko 45: " << std::endl
+            << "ispis svih studenata (azurirane godine): " << std::endl;
   filter_students(students, arr_len, increment_year, ECTS_45_or_higher);
+  print_students();
 }
