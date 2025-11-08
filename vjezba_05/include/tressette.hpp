@@ -29,6 +29,7 @@ class Player {
 class Deck {
   std::array<Card, DECK_SIZE> cards;
 
+public:
   Deck();
   void shuffle_cards();
   void deal_cards();
