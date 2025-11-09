@@ -8,9 +8,20 @@
 #define HAND_SIZE 10
 #define DECK_SIZE 40
 
+#define TWO_PLAYERS 2
+#define FOUR_PLAYERS 4
+
+#define PLAYER_ONE 0
+#define PLAYER_TWO 1
+#define PLAYER_THREE 2
+#define PLAYER_FOUR 3
+
+// #define DEFAULT_PLAYER_NAME "default_name"
+#define DEFAULT_PLAYER_POINTS 0
+
 enum class Suit { Hearts, Diamonds, Clubs, Spades };
 
-enum class Mode { oneVersusOne = 2, twoVersusTwo = 4 };
+enum class Mode { oneVersusOne, twoVersusTwo };
 
 class Card {
 public:
@@ -19,30 +30,30 @@ public:
 };
 
 class Player {
-  std::string name;
+
+public:
   std::array<Card, HAND_SIZE> hand;
+  Player(std::string);
+  std::string name;
   unsigned short points;
 
   unsigned short acquire_special_points();
 };
 
 class Deck {
-  std::array<Card, DECK_SIZE> cards;
+  std::vector<Card> cards;
 
 public:
   Deck();
   void shuffle_cards();
-  void deal_cards();
+  void deal_cards(std::vector<Player>);
 };
 
 class Tressette {
 public:
-  Tressette(Mode);
-  // Mode mode;
   std::vector<Player> players;
+  Tressette(Mode);
   Deck deck;
-
-  void pick_mode();
 };
 
 #endif
