@@ -35,8 +35,10 @@ public:
   void deal_cards();
 };
 
-class Game {
-  Mode mode;
+class Tressette {
+public:
+  Tressette(Mode);
+  // Mode mode;
   std::vector<Player> players;
   Deck deck;
 

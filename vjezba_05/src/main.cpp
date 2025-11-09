@@ -1,8 +1,8 @@
-#include <iostream>
-
+// #include <iostream>
 #include "tressette.hpp"
 
 int main() {
   //
-  Deck deck;
+  Tressette game;
+  game.deck.shuffle_cards();
 }
