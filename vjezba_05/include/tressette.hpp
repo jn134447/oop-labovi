@@ -1,7 +1,6 @@
 #ifndef TRESSETTE
 #define TRESSETTE
 
-#include <array>
 #include <string>
 #include <vector>
 
@@ -32,7 +31,7 @@ public:
 class Player {
 
 public:
-  std::array<Card, HAND_SIZE> hand;
+  std::vector<Card> hand;
   Player(std::string);
   std::string name;
   unsigned short points;
@@ -46,7 +45,7 @@ class Deck {
 public:
   Deck();
   void shuffle_cards();
-  void deal_cards(std::vector<Player>);
+  void deal_cards(std::vector<Player> &);
 };
 
 class Tressette {

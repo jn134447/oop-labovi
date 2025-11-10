@@ -1,6 +1,8 @@
 #include "tressette.hpp"
 
 #include <algorithm>
+#include <array>
+#include <iostream>
 #include <random>
 #include <stdexcept>
 #include <string>
@@ -31,18 +33,25 @@ void Deck::shuffle_cards() {
   std::shuffle(this->cards.begin(), this->cards.end(), g);
 }
 
-void Deck::deal_cards(std::vector<Player> players) {
+void Deck::deal_cards(std::vector<Player> &players) {
   if (players.size() != TWO_PLAYERS && players.size() != FOUR_PLAYERS) {
     throw std::invalid_argument("Invalid amount of players");
   }
 
   for (Player &player : players) {
-    std::copy_n(this->cards.begin(), 10, player.hand.begin());
+    player.hand.clear();
+    player.hand.resize(HAND_SIZE);
+
+    std::copy(this->cards.begin(), this->cards.begin() + HAND_SIZE,
+              player.hand.begin());
+    this->cards.erase(this->cards.begin(), this->cards.begin() + HAND_SIZE);
+    std::cout << "dealt cards" << std::endl;
   }
 }
 
 Player::Player(std::string name) {
   this->name = name;
+  this->hand.reserve(HAND_SIZE);
   this->points = DEFAULT_PLAYER_POINTS;
 }
 
