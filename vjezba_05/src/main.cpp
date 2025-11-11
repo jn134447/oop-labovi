@@ -1,5 +1,4 @@
 #include "tressette.hpp"
-#include <algorithm>
 #include <iostream>
 #include <vector>
 
@@ -8,17 +7,6 @@ int main() {
 
   game.deck.shuffle_cards();
   game.deck.deal_cards(game.players);
-
-  // auto hand_cmp = [](Card &card_1, Card &card_2) {
-  //   return card_1.number < card_2.number;
-  // };
-  // std::sort(game.players.at(PLAYER_ONE).hand.begin(),
-  //           game.players.at(PLAYER_ONE).hand.end(), hand_cmp);
-
-  // debug hands:
-  // game.players.at(PLAYER_ONE).hand.at(0) = {1, Suit::Clubs};
-  // game.players.at(PLAYER_ONE).hand.at(1) = {2, Suit::Clubs};
-  // game.players.at(PLAYER_ONE).hand.at(2) = {3, Suit::Clubs};
 
   // printing shit
   std::cout << "player one:";

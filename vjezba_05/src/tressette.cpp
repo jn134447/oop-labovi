@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <array>
-#include <cstddef>
 #include <random>
 #include <stdexcept>
 #include <string>
@@ -48,12 +47,10 @@ void Deck::deal_cards(std::vector<Player> &players) {
     this->cards.erase(this->cards.begin(), this->cards.begin() + HAND_SIZE);
 
     // WARN: REMOVE DEBUG HANDS
-    player.hand.at(1) = {1, Suit::Clubs};
-    player.hand.at(2) = {1, Suit::Hearts};
-    player.hand.at(3) = {2, Suit::Clubs};
-    player.hand.at(4) = {2, Suit::Hearts};
-    player.hand.at(5) = {3, Suit::Clubs};
-    player.hand.at(6) = {3, Suit::Hearts};
+    player.hand = {{1, Suit::Clubs},    {1, Suit::Hearts}, {1, Suit::Diamonds},
+                   {1, Suit::Spades},   {2, Suit::Clubs},  {2, Suit::Hearts},
+                   {2, Suit::Diamonds}, {2, Suit::Clubs},  {11, Suit::Clubs},
+                   {13, Suit::Clubs}};
 
     player.calculate_special_points();
   }
@@ -101,8 +98,19 @@ unsigned short Player::napoli_points() {
 }
 
 unsigned short Player::multi_of_kind_points() {
-  //
-  return FOUR_OF_A_KIND_POINTS;
+  unsigned short points = ZERO_POINTS;
+
+  for (unsigned short number : {1, 2, 3}) {
+    int count =
+        std::count_if(hand.begin(), hand.end(),
+                      [&number](const Card &c) { return c.number == number; });
+    if (count == 4)
+      points += FOUR_OF_A_KIND_POINTS;
+    else if (count == 3)
+      points += THREE_OF_A_KIND_POINTS;
+  }
+
+  return points;
 }
 
 Tressette::Tressette(Mode mode) {
