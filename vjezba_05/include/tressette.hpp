@@ -4,19 +4,21 @@
 #include <string>
 #include <vector>
 
-#define HAND_SIZE 10
-#define DECK_SIZE 40
+constexpr unsigned short HAND_SIZE = 10;
+constexpr unsigned short DECK_SIZE = 40;
 
-#define TWO_PLAYERS 2
-#define FOUR_PLAYERS 4
+constexpr unsigned short TWO_PLAYERS = 2;
+constexpr unsigned short FOUR_PLAYERS = 4;
 
-#define PLAYER_ONE 0
-#define PLAYER_TWO 1
-#define PLAYER_THREE 2
-#define PLAYER_FOUR 3
+constexpr unsigned short PLAYER_ONE = 0;
+constexpr unsigned short PLAYER_TWO = 1;
+constexpr unsigned short PLAYER_THREE = 2;
+constexpr unsigned short PLAYER_FOUR = 3;
 
-// #define DEFAULT_PLAYER_NAME "default_name"
-#define DEFAULT_PLAYER_POINTS 0
+constexpr unsigned short DEFAULT_PLAYER_POINTS = 0;
+constexpr unsigned short NAPOLI_POINTS = 0;
+constexpr unsigned short THREE_OF_A_KIND_POINTS = 0;
+constexpr unsigned short FOUR_OF_A_KIND_POINTS = 0;
 
 enum class Suit { Hearts, Diamonds, Clubs, Spades };
 

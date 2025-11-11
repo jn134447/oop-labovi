@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <array>
-#include <iostream>
 #include <random>
 #include <stdexcept>
 #include <string>
@@ -45,7 +44,6 @@ void Deck::deal_cards(std::vector<Player> &players) {
     std::copy(this->cards.begin(), this->cards.begin() + HAND_SIZE,
               player.hand.begin());
     this->cards.erase(this->cards.begin(), this->cards.begin() + HAND_SIZE);
-    std::cout << "dealt cards" << std::endl;
   }
 }
 
