@@ -2,9 +2,11 @@
 
 #include <algorithm>
 #include <array>
+#include <cstddef>
 #include <random>
 #include <stdexcept>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 Deck::Deck() {
@@ -44,13 +46,63 @@ void Deck::deal_cards(std::vector<Player> &players) {
     std::copy(this->cards.begin(), this->cards.begin() + HAND_SIZE,
               player.hand.begin());
     this->cards.erase(this->cards.begin(), this->cards.begin() + HAND_SIZE);
+
+    // WARN: REMOVE DEBUG HANDS
+    player.hand.at(1) = {1, Suit::Clubs};
+    player.hand.at(2) = {1, Suit::Hearts};
+    player.hand.at(3) = {2, Suit::Clubs};
+    player.hand.at(4) = {2, Suit::Hearts};
+    player.hand.at(5) = {3, Suit::Clubs};
+    player.hand.at(6) = {3, Suit::Hearts};
+
+    player.calculate_special_points();
   }
 }
 
 Player::Player(std::string name) {
   this->name = name;
   this->hand.reserve(HAND_SIZE);
-  this->points = DEFAULT_PLAYER_POINTS;
+  this->points = ZERO_POINTS;
+}
+
+void Player::calculate_special_points() {
+  points = napoli_points() + multi_of_kind_points();
+}
+
+unsigned short Player::napoli_points() {
+  auto by_card_numbers = [](Card &card_1, Card &card_2) {
+    return card_1.number < card_2.number;
+  };
+  std::sort(hand.begin(), hand.end(), by_card_numbers);
+
+  std::unordered_map<Suit, std::vector<unsigned short>> cards_by_suit;
+  for (Card &card : hand) {
+    cards_by_suit[card.suit].push_back(card.number);
+  }
+
+  for (auto &[suit, numbers] : cards_by_suit) {
+    bool has_ace = false, has_two = false, has_three = false;
+
+    for (unsigned short number : numbers) {
+      if (number == 1)
+        has_ace = true;
+      else if (number == 2)
+        has_two = true;
+      else if (number == 3)
+        has_three = true;
+    }
+
+    if (has_ace && has_two && has_three) {
+      return NAPOLI_POINTS;
+    }
+  }
+
+  return ZERO_POINTS;
+}
+
+unsigned short Player::multi_of_kind_points() {
+  //
+  return FOUR_OF_A_KIND_POINTS;
 }
 
 Tressette::Tressette(Mode mode) {

@@ -15,11 +15,15 @@ constexpr unsigned short PLAYER_TWO = 1;
 constexpr unsigned short PLAYER_THREE = 2;
 constexpr unsigned short PLAYER_FOUR = 3;
 
-constexpr unsigned short DEFAULT_PLAYER_POINTS = 0;
-constexpr unsigned short NAPOLI_POINTS = 0;
-constexpr unsigned short THREE_OF_A_KIND_POINTS = 0;
-constexpr unsigned short FOUR_OF_A_KIND_POINTS = 0;
+constexpr unsigned short ZERO_POINTS = 0;
+constexpr unsigned short NAPOLI_POINTS = 3;
+constexpr unsigned short THREE_OF_A_KIND_POINTS = 3;
+constexpr unsigned short FOUR_OF_A_KIND_POINTS = 4;
 
+// Hearts → Cuori (Italian) / Copas (Spanish)
+// Diamonds → Denari (Italian) / Oros (Spanish)
+// Clubs → Bastoni (Italian) / Bastos (Spanish)
+// Spades → Spade (Italian) / Espadas (Spanish)
 enum class Suit { Hearts, Diamonds, Clubs, Spades };
 
 enum class Mode { oneVersusOne, twoVersusTwo };
@@ -31,14 +35,16 @@ public:
 };
 
 class Player {
+  unsigned short napoli_points();
+  unsigned short multi_of_kind_points();
 
 public:
   std::vector<Card> hand;
-  Player(std::string);
   std::string name;
   unsigned short points;
 
-  unsigned short acquire_special_points();
+  Player(std::string);
+  void calculate_special_points();
 };
 
 class Deck {
