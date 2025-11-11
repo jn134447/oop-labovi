@@ -1,30 +1,37 @@
 #include "tressette.hpp"
-#include <algorithm>
 #include <iostream>
+#include <string>
 #include <vector>
 
-int main()
+int
+main()
 {
-    unsigned short user_mode;
-    Mode mode;
-    std::cout << "unesite broj igraca (game mode) [2 or 4]: ";
-    std::cin >> user_mode;
+  Tressette game;
 
-    if (user_mode == 2)
-        mode = Mode::oneVersusOne;
-    else if (user_mode == 4)
-        mode = Mode::twoVersusTwo;
-    else
-    {
-        std::cout << "wrong mode selected, aborting..." << std::endl;
-        return 1;
-    }
+  unsigned short user_mode;
+  Mode mode;
+  std::cout << "unesite broj igraca (game mode) [2 or 4]: ";
+  // std::cin >> user_mode;
+  user_mode = 4;
 
-    Tressette game(mode);
+  if (user_mode == 2)
+    mode = Mode::oneVersusOne;
+  else if (user_mode == 4)
+    mode = Mode::twoVersusTwo;
+  else {
+    std::cout << "wrong mode selected, aborting..." << std::endl;
+    return 1;
+  }
 
-    game.deck.shuffle_cards();
-    game.deck.deal_cards(game.players);
+  std::vector<std::string> names{
+    "player one", "player two", "ante", "vukodlak"
+  };
+  game.set_mode(mode);
+  game.set_players(names);
 
-    // printing shit
-    game.print_game_state();
+  game.deck.shuffle_cards();
+  game.deck.deal_cards(game.players);
+
+  // printing shit
+  game.print_game_state();
 }
