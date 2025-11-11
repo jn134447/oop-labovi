@@ -24,43 +24,63 @@ constexpr unsigned short FOUR_OF_A_KIND_POINTS = 4;
 // Diamonds → Denari (Italian) / Oros (Spanish)
 // Clubs → Bastoni (Italian) / Bastos (Spanish)
 // Spades → Spade (Italian) / Espadas (Spanish)
-enum class Suit { Hearts, Diamonds, Clubs, Spades };
-
-enum class Mode { oneVersusOne, twoVersusTwo };
-
-class Card {
-public:
-  unsigned short number;
-  Suit suit;
+enum class Suit
+{
+    Hearts,
+    Diamonds,
+    Clubs,
+    Spades
 };
 
-class Player {
-  unsigned short napoli_points();
-  unsigned short multi_of_kind_points();
-
-public:
-  std::vector<Card> hand;
-  std::string name;
-  unsigned short points;
-
-  Player(std::string);
-  void calculate_special_points();
+enum class Mode
+{
+    oneVersusOne,
+    twoVersusTwo
 };
 
-class Deck {
-  std::vector<Card> cards;
-
-public:
-  Deck();
-  void shuffle_cards();
-  void deal_cards(std::vector<Player> &);
+class Card
+{
+  public:
+    unsigned short number;
+    Suit suit;
+    std::string to_string();
 };
 
-class Tressette {
-public:
-  std::vector<Player> players;
-  Tressette(Mode);
-  Deck deck;
+class Player
+{
+    unsigned short napoli_points();
+    unsigned short multi_of_kind_points();
+
+  public:
+    std::vector<Card> hand;
+    std::string name;
+    unsigned short points;
+
+    Player(std::string);
+    void show_hand();
+    void calculate_special_points();
+};
+
+class Deck
+{
+  public:
+    std::vector<Card> cards;
+    Deck();
+    void shuffle_cards();
+    void deal_cards(std::vector<Player> &);
+};
+
+class Tressette
+{
+  public:
+    Mode mode;
+    std::vector<Player> players;
+    Tressette(Mode);
+    Deck deck;
+    void print_game_state();
+    void print_players_info();
+    void print_mode();
+    void print_deck_contents();
 };
 
 #endif
