@@ -11,8 +11,8 @@ main()
   unsigned short user_mode;
   Mode mode;
   std::cout << "unesite broj igraca (game mode) [2 or 4]: ";
-  // std::cin >> user_mode;
-  user_mode = 4;
+  std::cin >> user_mode;
+  // user_mode = 2;
 
   if (user_mode == 2)
     mode = Mode::oneVersusOne;
@@ -23,15 +23,23 @@ main()
     return 1;
   }
 
-  std::vector<std::string> names{
-    "player one", "player two", "ante", "vukodlak"
-  };
+  std::vector<std::string> names;
+  std::cin.ignore();
+
+  for (int i = 0; i < user_mode; i++) {
+    std::string name;
+    std::cout << "Enter name for player " << (i + 1) << ": ";
+    std::getline(std::cin, name);
+    names.push_back(name);
+  }
+
   game.set_mode(mode);
   game.set_players(names);
 
   game.deck.shuffle_cards();
   game.deck.deal_cards(game.players);
 
-  // printing shit
+  game.calculate_all_player_bonuses();
+
   game.print_game_state();
 }

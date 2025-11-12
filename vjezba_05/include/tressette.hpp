@@ -58,7 +58,7 @@ public:
 
   Player(std::string);
   void show_hand();
-  void calculate_special_points();
+  void calculate_bonus_points();
 };
 
 class Deck
@@ -75,7 +75,6 @@ class Tressette
 public:
   Mode mode;
   std::vector<Player> players;
-  Tressette();
   void set_mode(Mode);
   void set_players(std::vector<std::string>);
   Deck deck;
@@ -83,6 +82,7 @@ public:
   void print_players_info();
   void print_mode();
   void print_deck_contents();
+  void calculate_all_player_bonuses();
 };
 
 #endif

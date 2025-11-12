@@ -55,13 +55,11 @@ Deck::deal_cards(std::vector<Player>& players)
     this->cards.erase(this->cards.begin(), this->cards.begin() + HAND_SIZE);
 
     // WARN: REMOVE DEBUG HANDS
-    player.hand = { { 1, Suit::Clubs },    { 1, Suit::Hearts },
-                    { 1, Suit::Diamonds }, { 1, Suit::Spades },
-                    { 2, Suit::Clubs },    { 2, Suit::Hearts },
-                    { 2, Suit::Diamonds }, { 2, Suit::Clubs },
-                    { 11, Suit::Clubs },   { 13, Suit::Clubs } };
-
-    player.calculate_special_points();
+    // player.hand = { { 1, Suit::Clubs },    { 1, Suit::Hearts },
+    //                 { 1, Suit::Diamonds }, { 1, Suit::Spades },
+    //                 { 2, Suit::Clubs },    { 2, Suit::Hearts },
+    //                 { 2, Suit::Diamonds }, { 2, Suit::Clubs },
+    //                 { 11, Suit::Clubs },   { 13, Suit::Clubs } };
   }
 }
 
@@ -81,7 +79,7 @@ Player::show_hand()
 }
 
 void
-Player::calculate_special_points()
+Player::calculate_bonus_points()
 {
   points = napoli_points() + multi_of_kind_points();
 }
@@ -159,6 +157,13 @@ Tressette::set_players(std::vector<std::string> names)
   for (std::string name : names) {
     players.emplace_back(name);
   }
+}
+
+void
+Tressette::calculate_all_player_bonuses()
+{
+  for (Player& player : players)
+    player.calculate_bonus_points();
 }
 
 void
