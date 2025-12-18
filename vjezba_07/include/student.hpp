@@ -1,39 +1,15 @@
 #ifndef UNIVERSITY
 #define UNIVERSITY
 
+#include "courses.hpp"
+#include "university_constants.hpp"
+
 #include <iostream>
 #include <string>
 #include <memory>
 #include <vector>
 
 constexpr unsigned short MAX_COURSES_ARRAY_SIZE = 100;
-
-class Course
-{
-private:
-    std::string id;
-    std::string name;
-    int ects;
-
-public:
-    Course();
-    Course(std::string name, std::string ID, int ECTS);
-
-    std::string get_id() const;
-    std::string get_name() const;
-    int get_ects() const;
-
-    friend std::ostream &operator<<(std::ostream &os, const Course &course);
-    friend std::istream &operator>>(std::istream &is, Course &course);
-};
-
-struct UniversityConstants
-{
-    const int MAX_ETCS_PER_YEAR = 60;
-    const int REQUIRED_ECTS_PER_YEAR = 45;
-
-    void print_university_rules() const;
-};
 
 class Student
 {
@@ -79,6 +55,8 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const Student &student);
     friend std::istream &operator>>(std::istream &is, Student &student);
+
+    friend class StudentOffice;
 };
 
 #endif

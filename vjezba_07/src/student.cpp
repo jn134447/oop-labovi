@@ -1,10 +1,5 @@
 #include "student.hpp"
 
-// int Student::get_ID() const { return this->ID; };
-// std::string Student::get_name() const { return this->name; }
-// std::string Student::get_study_program() const { return this->study_program; }
-// int Student::get_year() const { return this->year; };
-
 int Student::total_students = 0;
 
 int Student::get_total_students() { return total_students; }
@@ -169,51 +164,3 @@ std::istream &operator>>(std::istream &is, Student &student)
     return is;
 }
 
-void UniversityConstants::print_university_rules() const
-{
-    std::cout << "MAX_ETCS_PER_YEAR = " << MAX_ETCS_PER_YEAR << '\n';
-    std::cout << "REQUIRED_ECTS_PER_YEAR = " << REQUIRED_ECTS_PER_YEAR << '\n';
-}
-
-Course::Course() : id("default_id"), name("default_name"), ects(0) {}
-
-Course::Course(std::string ID,
-               std::string name,
-               int ECTS)
-    : id(ID),
-      name(name),
-      ects(ECTS)
-{
-}
-
-std::string Course::get_id() const { return id; }
-std::string Course::get_name() const { return name; }
-int Course::get_ects() const { return ects; }
-
-std::istream &operator>>(std::istream &is, Course &course)
-{
-    std::string buffer;
-
-    buffer.clear();
-    std::cout << "ID: ";
-    if (std::getline(is, buffer))
-        course.id = buffer;
-
-    buffer.clear();
-    std::cout << "name: ";
-    if (std::getline(is, buffer))
-        course.name = buffer;
-
-    buffer.clear();
-    std::cout << "ECTS: ";
-    if (std::getline(is, buffer))
-        course.ects = std::stoi(buffer);
-
-    return is;
-}
-std::ostream &operator<<(std::ostream &os, const Course &course)
-{
-    return os << course.id << "\t"
-              << course.name << "\t"
-              << course.ects;
-}
