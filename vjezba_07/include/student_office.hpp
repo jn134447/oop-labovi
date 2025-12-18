@@ -1,5 +1,5 @@
-#ifndef STUDENT_OFFICE
-#define STUDENT_OFFICE
+#ifndef STUDENT_OFFICE_H
+#define STUDENT_OFFICE_H
 
 #include "student.hpp"
 
@@ -11,6 +11,7 @@ public:
 
     void enroll_student(Student& student, const Course& course);
     void process_exam_results(std::vector<Student>& students);
+    void update_student_years(std::vector<Student>& students);
 };
 
 #endif

@@ -49,4 +49,12 @@ int main()
     std::cout << '\n'
               << students.at(0) << '\n'
               << students.at(1) << '\n';
+
+    StudentOffice office;
+    office.process_exam_results(students);
+    office.update_student_years(students);
+
+    std::cout << '\n'
+              << students.at(0) << '\n'
+              << students.at(1) << '\n';
 }

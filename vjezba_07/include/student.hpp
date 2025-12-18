@@ -59,4 +59,6 @@ public:
     friend class StudentOffice;
 };
 
+#include "student_office.hpp"
+
 #endif
