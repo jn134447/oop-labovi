@@ -37,6 +37,16 @@ public:
     virtual bool isAlive() const;
 };
 
+class Enemy : public GameCharacter
+{
+protected:
+    unsigned int difficulty;
+
+    virtual void attackPlayer(Player &player) = 0;
+
+public:
+    Enemy(int health, std::string name, unsigned int difficulty);
+};
 class Player : public GameCharacter
 {
 protected:
@@ -50,17 +60,6 @@ public:
     Player(int health, std::string name);
 };
 
-class Enemy : public GameCharacter
-{
-protected:
-    unsigned int difficulty;
-
-    virtual void attackPlayer(Player &player) = 0;
-
-public:
-    Enemy(int health, std::string name, unsigned int difficulty);
-};
-
 // Player classes
 class Warrior : public Player
 {
@@ -72,7 +71,7 @@ protected:
 public:
     Warrior(std::string name);
 
-    void attackEnemy(Enemy &enemy) override;
+    void attackEnemy(Enemy &enemy);
     void takeDamage(int amount) override;
     void specialAbility() override;
 };
@@ -86,10 +85,10 @@ protected:
     int manaCostFireball = 20;
     int attackDamageStick = 20;
 
+public:
     Mage(std::string name);
 
-public:
-    void attackEnemy(Enemy &enemy) override;
+    void attackEnemy(Enemy &enemy);
     void specialAbility() override;
 };
 
@@ -102,7 +101,7 @@ protected:
 public:
     Gnome(std::string name);
 
-    virtual void attackPlayer(Player &player) override;
+    virtual void attackPlayer(Player &player);
     void specialAbility() override;
 };
 
@@ -111,10 +110,11 @@ class Boss : public Enemy
 protected:
     int attackDamage = 10;
     int healthRegen = 50;
+
 public:
     Boss(std::string name);
 
-    virtual void attackPlayer(Player &player) override;
+    virtual void attackPlayer(Player &player);
     void specialAbility() override;
 };
 
