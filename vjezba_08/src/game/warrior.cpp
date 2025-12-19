@@ -43,7 +43,3 @@ void Warrior::specialAbility()
     std::cout << name << "> is guarding" << '\n';
     shieldActive = true;
 }
-
-Mage::Mage(std::string name) : Player(MAGE_INIT_HP, name)
-{
-}

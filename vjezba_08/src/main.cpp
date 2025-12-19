@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+
 /*
 Implementirajte sve navedene klase s odgovarajućim konstuktorima i
 destruktorima. U main funkciji · Kreirajte sljedeće likove: Conan (Warrior),
@@ -26,12 +27,6 @@ constexpr unsigned short DRAGON = 4;
 
 int main()
 {
-
-    // std::unique_ptr<GameCharacter> conan =  std::make_unique<Warrior>("Conan");
-    // std::unique_ptr<GameCharacter> merlin = std::make_unique<Mage>("Merlin");
-    // std::unique_ptr<GameCharacter> gnomeo = std::make_unique<Gnome>("Gnomeo");
-    // std::unique_ptr<GameCharacter> sneaky = std::make_unique<Gnome>("Sneaky");
-    // std::unique_ptr<GameCharacter> dragon = std::make_unique<Boss>("Dragon");
 
     std::vector<std::unique_ptr<GameCharacter>> entities;
 
