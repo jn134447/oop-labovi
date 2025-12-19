@@ -6,6 +6,12 @@ GameCharacter::GameCharacter(int health, std::string name)
 {
 }
 
+void GameCharacter::useSpecialAbility()
+{
+    if (isAlive())
+        specialAbility();
+}
+
 void GameCharacter::displayStatus() const
 {
     std::cout << "displayStatus(): "
@@ -19,8 +25,11 @@ void GameCharacter::takeDamage(int amount)
     health -= amount;
     std::cout << name << "> took " << amount << " damage [" << health << "]" << '\n';
 
-    if (health < HEALTH_DEATH_THRESHOLD)
+    if (health <= HEALTH_DEATH_THRESHOLD)
+    {
         dead = true;
+        std::cout << name << "> died" << '\n';
+    }
 }
 
 bool GameCharacter::isAlive() const
@@ -38,7 +47,14 @@ void Player::attack(GameCharacter &game_char)
 {
     if (Enemy *enemy = dynamic_cast<Enemy *>(&game_char))
     {
-        attackEnemy(*enemy);
+        if (isAlive())
+        {
+            attackEnemy(*enemy);
+        }
+        else
+        {
+            std::cout << name << "> unable to attack while dead" << '\n';
+        }
     }
 }
 
@@ -51,6 +67,9 @@ void Enemy::attack(GameCharacter &game_char)
 {
     if (Player *player = dynamic_cast<Player *>(&game_char))
     {
+        if (!game_char.isAlive())
+            return;
+
         attackPlayer(*player);
     }
 }
@@ -91,16 +110,16 @@ void Warrior::takeDamage(int amount)
     health -= amount;
     std::cout << name << "> took " << amount << " damage [" << health << "]" << '\n';
 
-    if (health < HEALTH_DEATH_THRESHOLD)
+    if (health <= HEALTH_DEATH_THRESHOLD)
     {
         dead = true;
+        std::cout << name << "> died" << '\n';
         shieldActive = false;
     }
 }
 
 void Warrior::specialAbility()
 {
-
     std::cout << name << "> is guarding" << '\n';
     shieldActive = true;
 }
@@ -139,7 +158,8 @@ void Mage::specialAbility()
     {
         std::cout << name << "> insufficent amount of health for a teleport" << '\n';
     }
-    std::cout << name << "> teleporting..." << '\n';
+    else
+        std::cout << name << "> teleporting..." << '\n';
 }
 
 Gnome::Gnome(std::string name) : Enemy(GNOME_INIT_HP, name, GNOME_INIT_DIFFICULTY)
@@ -161,7 +181,8 @@ void Gnome::specialAbility()
     {
         std::cout << name << "> used the horn." << '\n';
     }
-    std::cout << name << "> too weak to use the horn." << '\n';
+    else
+        std::cout << name << "> too weak to use the horn." << '\n';
 }
 
 Boss::Boss(std::string name) : Enemy(BOSS_INIT_HP, name, BOSS_INIT_DIFFICULTY)

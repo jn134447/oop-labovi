@@ -26,11 +26,12 @@ protected:
     std::string name;
     bool dead = false;
 
+    virtual void specialAbility() = 0;
 public:
     GameCharacter(int health, std::string name);
 
-    virtual void specialAbility() = 0;
     virtual void attack(GameCharacter &game_char) = 0;
+    void useSpecialAbility();
 
     virtual void displayStatus() const;
     virtual void takeDamage(int amount);

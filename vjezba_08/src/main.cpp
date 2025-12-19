@@ -41,9 +41,46 @@ int main()
     entities.emplace_back(std::make_unique<Gnome>("Sneaky"));
     entities.emplace_back(std::make_unique<Boss>("Dragon"));
 
-    // GameCharacter is expected to call attackEnemy and attackPlayer
-    // even when it dosent have those functions?????????
-    // this exercise contradicts itself
-    entities.at(CONAN).get()->attack(*entities.at(GNOMEO).get());
-    entities.at(MERLIN).get()->attack(*entities.at(SNEAKY).get());
+    // gameplay time!!!
+    auto info_about_both = [&entities](int a, int b)
+    {
+        entities.at(a).get()->displayStatus();
+        entities.at(b).get()->displayStatus();
+    };
+    auto attack_another_with_info = [&entities, info_about_both](int a, int b)
+    {
+        entities.at(a).get()->attack(*entities.at(b).get());
+        info_about_both(a, b);
+        std::cout << '\n';
+    };
+
+    /*
+    Conan napada Gnomea,
+    Merlin napada Sneakyja,
+    Gnomeo napada Conana,
+    Merlin napada Gnomea,
+    Dragon napada Merlina,
+    Merlin napada Gnomea,
+    Conan napada Dragona,
+    Merlin napada Dragona).
+    Nakon svakog napada ispišite status oba lika.
+    */
+
+    attack_another_with_info(CONAN, GNOMEO);
+    attack_another_with_info(MERLIN, SNEAKY);
+    attack_another_with_info(GNOMEO, CONAN);
+    attack_another_with_info(MERLIN, GNOMEO);
+    attack_another_with_info(DRAGON, MERLIN);
+    attack_another_with_info(CONAN, DRAGON);
+    attack_another_with_info(MERLIN, DRAGON);
+
+    std::cout << '\n'
+              << "everyone is using a special ability!" << "\n\n";
+    for (auto &entity : entities)
+        entity.get()->useSpecialAbility();
+
+    std::cout << '\n'
+              << "fight is over, displaying info about each character:" << "\n\n";
+    for (auto &entity : entities)
+        entity.get()->displayStatus();
 }
