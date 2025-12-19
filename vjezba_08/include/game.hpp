@@ -26,25 +26,27 @@ protected:
     std::string name;
     bool dead = false;
 
-    // pretty sure this is what they call an interface
-    virtual void specialAbility() = 0;
-
 public:
     GameCharacter(int health, std::string name);
-    virtual void displayStatus() const;
 
+    virtual void specialAbility() = 0;
+    // virtual void attackPlayer(Player &player) = 0;
+    // virtual void attackEnemy(Enemy& enemy) = 0;
+
+    virtual void displayStatus() const;
     virtual void takeDamage(int amount);
     virtual bool isAlive() const;
 };
+class Enemy;
+class Player;
 
 class Enemy : public GameCharacter
 {
 protected:
     unsigned int difficulty;
 
-    virtual void attackPlayer(Player &player) = 0;
-
 public:
+    virtual void attackPlayer(Player &player) = 0;
     Enemy(int health, std::string name, unsigned int difficulty);
 };
 class Player : public GameCharacter
@@ -52,11 +54,9 @@ class Player : public GameCharacter
 protected:
     int score;
 
-    void addScore(int amount);
-
-    virtual void attackEnemy(Enemy &enemy) = 0;
-
 public:
+    void addScore(int amount);
+    virtual void attackEnemy(Enemy &enemy) = 0;
     Player(int health, std::string name);
 };
 
@@ -71,7 +71,7 @@ protected:
 public:
     Warrior(std::string name);
 
-    void attackEnemy(Enemy &enemy);
+    void attackEnemy(Enemy &enemy) override;
     void takeDamage(int amount) override;
     void specialAbility() override;
 };
@@ -88,7 +88,7 @@ protected:
 public:
     Mage(std::string name);
 
-    void attackEnemy(Enemy &enemy);
+    void attackEnemy(Enemy &enemy) override;
     void specialAbility() override;
 };
 
@@ -101,7 +101,7 @@ protected:
 public:
     Gnome(std::string name);
 
-    virtual void attackPlayer(Player &player);
+    void attackPlayer(Player &player) override;
     void specialAbility() override;
 };
 
@@ -114,7 +114,7 @@ protected:
 public:
     Boss(std::string name);
 
-    virtual void attackPlayer(Player &player);
+    void attackPlayer(Player &player) override;
     void specialAbility() override;
 };
 

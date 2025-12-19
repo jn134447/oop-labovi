@@ -171,5 +171,5 @@ void Boss::specialAbility()
     {
         health += healthRegen;
     }
-    std::cout << name << "> used regeneration, now has " << health << " health" << '\n';
+    std::cout << name << "> used regeneration, now has " << health<< " health" << '\n';
 }
