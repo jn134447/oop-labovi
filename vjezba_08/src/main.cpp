@@ -41,8 +41,9 @@ int main()
     entities.emplace_back(std::make_unique<Gnome>("Sneaky"));
     entities.emplace_back(std::make_unique<Boss>("Dragon"));
 
-    // GameCharacter is expected to call attackEnemy and attackPlayer 
+    // GameCharacter is expected to call attackEnemy and attackPlayer
     // even when it dosent have those functions?????????
-    // this exercise contradicts itself 
-    entities.at(CONAN).get()->attackEnemy(entities.at(GNOMEO));
+    // this exercise contradicts itself
+    entities.at(CONAN).get()->attack(*entities.at(GNOMEO).get());
+    entities.at(MERLIN).get()->attack(*entities.at(SNEAKY).get());
 }

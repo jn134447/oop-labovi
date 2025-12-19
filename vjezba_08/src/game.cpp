@@ -34,9 +34,25 @@ void Player::addScore(int amount)
     std::cout << name << "> earned " << amount << " points [" << score << "]" << '\n';
 }
 
+void Player::attack(GameCharacter &game_char)
+{
+    if (Enemy *enemy = dynamic_cast<Enemy *>(&game_char))
+    {
+        attackEnemy(*enemy);
+    }
+}
+
 Player::Player(int health, std::string name)
     : GameCharacter(health, name)
 {
+}
+
+void Enemy::attack(GameCharacter &game_char)
+{
+    if (Player *player = dynamic_cast<Player *>(&game_char))
+    {
+        attackPlayer(*player);
+    }
 }
 
 Enemy::Enemy(int health, std::string name, unsigned int difficulty)
@@ -171,5 +187,5 @@ void Boss::specialAbility()
     {
         health += healthRegen;
     }
-    std::cout << name << "> used regeneration, now has " << health<< " health" << '\n';
+    std::cout << name << "> used regeneration, now has " << health << " health" << '\n';
 }

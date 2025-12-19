@@ -30,8 +30,7 @@ public:
     GameCharacter(int health, std::string name);
 
     virtual void specialAbility() = 0;
-    // virtual void attackPlayer(Player &player) = 0;
-    // virtual void attackEnemy(Enemy& enemy) = 0;
+    virtual void attack(GameCharacter &game_char) = 0;
 
     virtual void displayStatus() const;
     virtual void takeDamage(int amount);
@@ -46,6 +45,7 @@ protected:
     unsigned int difficulty;
 
 public:
+    void attack(GameCharacter &game_char) override;
     virtual void attackPlayer(Player &player) = 0;
     Enemy(int health, std::string name, unsigned int difficulty);
 };
@@ -56,6 +56,8 @@ protected:
 
 public:
     void addScore(int amount);
+
+    void attack(GameCharacter &game_char) override;
     virtual void attackEnemy(Enemy &enemy) = 0;
     Player(int health, std::string name);
 };
