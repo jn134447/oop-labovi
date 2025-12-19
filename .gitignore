@@ -1,0 +1,7 @@
+**/.clang*
+**/.vscode/
+**/.direnv
+**/.envrc
+**/*.nix
+**/debug/
+**/.zed/
