@@ -1,6 +1,4 @@
 #include "animals.hpp"
-#include "zoo_keeper.hpp"
-#include "zoo_section.hpp"
 
 int main()
 {
@@ -20,4 +18,16 @@ int main()
     std::cout << "\n\n"
               << "Broj nahranjenih zivotinja: " << keeper.getTotalAnimalsServed() << '\n';
     std::cout << "Broj ukupne hrane potrosene: " << keeper.getTotalFoodUsage() << '\n';
+
+    try
+    {
+        Lion lion("aasd", -2, 0);
+    }
+    catch (std::invalid_argument &e)
+    {
+        // throw std::runtime_error(e.what());
+        std::cout << '\n'
+                  << e.what() << '\n';
+        SeaTurtle lion("def", 2, 5);
+    }
 }

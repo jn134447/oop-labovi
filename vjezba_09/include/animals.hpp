@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <iostream>
 
+
 // Abstract
 class Animal
 {
@@ -89,5 +90,8 @@ public:
               int age,
               double weight);
 };
+
+#include "zoo_keeper.hpp"
+#include "zoo_section.hpp"
 
 #endif
