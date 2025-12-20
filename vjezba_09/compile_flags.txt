@@ -1,0 +1,7 @@
+-fdiagnostics-color=always
+-g
+-std=c++17
+-I./include
+-Wall
+-Wextra
+
