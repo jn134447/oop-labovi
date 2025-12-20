@@ -10,40 +10,38 @@ class Animal
 {
 private:
     std::string name;
-    int years;
-    double daily_food_weight;
+    int age;
+    double weight;
     std::string species;
 
 protected:
     std::string getSpecies() const;
-    double getDailyFood() const;
+    virtual double getDailyFood() = 0;
     std::string getName() const;
 
     Animal(std::string name,
-           int years,
-           double daily_food_weight,
+           int age,
+           double weight,
            std::string species);
 };
 class Mammal;
 class Aquatic;
 
-class Mammal : public Animal
+class Mammal : virtual public Animal
 {
-private:
-    bool has_fur;
-
 protected:
+    bool has_fur;
     bool hasFur() const;
 
     Mammal(
         std::string name,
-        int years,
-        double daily_food_weight,
+        int age,
+        double weight,
         std::string species,
         bool has_fur);
 };
 
-class Aquatic : public Animal
+class Aquatic : virtual public Animal
 {
 private:
     double max_dive_depth;
@@ -51,14 +49,19 @@ private:
 protected:
     Aquatic(
         std::string name,
-        int years,
-        double daily_food_weight,
+        int age,
+        double weight,
         std::string species,
         double max_dive_depth);
 };
 
-class Lion
+class Lion : public Mammal
 {
+public:
+    Lion(
+        std::string name,
+        int age,
+        double weight);
 };
 
 class Dolphin
