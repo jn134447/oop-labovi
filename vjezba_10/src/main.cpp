@@ -10,7 +10,7 @@ constexpr std::string_view POINTS_PATH("../points.txt");
 constexpr std::string_view STUDENTS_PATH("../students.txt");
 constexpr int SCORE_THRESHOLD = 40;
 
-#define TASK 1
+#define TASK 3
 int main()
 {
 #if TASK == 1
@@ -177,7 +177,7 @@ int main()
                                 return acc + student.score;
                             })
 
-            / students.size();
+            / students.size();  // does not need a cast
 
         // 3.D sort by surname (ascending)
         std::sort(students.begin(), students.end(),
