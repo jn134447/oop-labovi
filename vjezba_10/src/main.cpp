@@ -2,8 +2,6 @@
 #include <vector>
 #include <algorithm>
 #include <numeric>
-#include <iomanip>
-#include <cmath>
 
 #include "math_utils.hpp"
 #include "student.hpp"
@@ -12,7 +10,7 @@ constexpr std::string_view POINTS_PATH("../points.txt");
 constexpr std::string_view STUDENTS_PATH("../students.txt");
 constexpr int SCORE_THRESHOLD = 40;
 
-#define TASK 3
+#define TASK 1
 int main()
 {
 #if TASK == 1
@@ -94,8 +92,6 @@ int main()
                       return (calc_distance(a, plane_center) <
                               calc_distance(b, plane_center));
                   });
-        for (Point &point : points)
-            std::cout << point.x << '\t' << point.y << '\n';
 
         // 2.B count points in first quadrant
         std::size_t first_quad_count =
@@ -121,8 +117,6 @@ int main()
                            point.y += 3;
                            return point;
                        });
-        for (Point &point : points)
-            std::cout << point.x << '\t' << point.y << '\n';
 
         // 2.E remove_if+erase for points in 3rd quadrant
         // NOTE: std::erase() is c++20 unfortunately
@@ -131,9 +125,6 @@ int main()
                            [](const Point &point)
                            { return (point.x < 0 && point.y < 0); }),
             points.end());
-
-        // for (Point &point : points)
-        //     std::cout << point.x << '\t' << point.y << '\n';
 
         // 2.F output using std::ostream_iterator NOTE: assuming its to console
         std::cout << "\n2.F:\n";
