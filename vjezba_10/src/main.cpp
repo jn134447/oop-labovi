@@ -6,11 +6,16 @@
 #include <cmath>
 
 #include "math_utils.hpp"
+#include "student.hpp"
 
-constexpr std::string_view PATH("../points.txt");
+constexpr std::string_view POINTS_PATH("../points.txt");
+constexpr std::string_view STUDENTS_PATH("../students.txt");
+constexpr int SCORE_THRESHOLD = 40;
 
+#define TASK 3
 int main()
 {
+#if TASK == 1
     // ------------ 1 ---------------
     std::vector<int> numbers{2, 4, 6, 7, 8, 9, 10, 11, 3, 16};
 
@@ -74,10 +79,12 @@ int main()
         std::cout << i << ", ";
     std::cout << '\n';
 
+#endif
+#if TASK == 2
     // ------------ 2 ---------------
     {
         using namespace math_utils;
-        std::vector<Point> points = load_numbers(PATH);
+        std::vector<Point> points = load_numbers(POINTS_PATH);
 
         // 2.A sort the points via lambda
         Point plane_center = {0.0, 0.0};
@@ -133,4 +140,61 @@ int main()
         std::ostream_iterator<Point> oiter(std::cout, "\n");
         std::copy(points.begin(), points.end(), oiter);
     }
+
+#endif
+#if TASK == 3
+    // ------------ 3 ---------------
+    // WARN: STUDENTS.TXT IS A FILE WHERE VALUES ARE SEPERATED WITH WHITESPACE
+    //       MAKE SURE THE SURNAME AND NAMES DONT CONTAIN WHITESPACES
+
+    // NOTE: again, exercise contradicts itself by
+    {
+        using namespace student;
+        // 3.A load from .txt file
+        std::vector<Student> students = load_students(STUDENTS_PATH);
+
+        // 3.B score_to_grade() function is a student member
+
+        auto print_students = [&students]()
+        {        for (Student &student : students)
+        {
+            std::cout << student.name << '\t'
+                      << student.surname << '\t'
+                      << student.score << '\n';
+        } };
+
+        // 3.C Map-Filter-Reduce
+        // Filter
+        students.erase(
+            std::remove_if(
+                students.begin(), students.end(),
+                [](const Student &student)
+                { return (student.score < SCORE_THRESHOLD); }),
+            students.end());
+
+        // Map
+        std::transform(students.begin(), students.end(), students.begin(),
+                       [](Student &student)
+                       {
+                           student.score = student.score_to_grade();
+                           return student;
+                       });
+        // Reduce
+        double students_gpa =
+            std::accumulate(students.begin(), students.end(), 0.0,
+                            [](double acc, const Student &student) { // its a grade here due to transform
+                                return acc + student.score;
+                            })
+
+            / students.size();
+
+        // 3.D sort by surname (ascending)
+        std::sort(students.begin(), students.end(),
+                  [](const Student &a, const Student &b)
+                  { return (a.surname.compare(b.surname) <= 0); });
+
+        print_students();
+        std::cout << "students_gpa: " << students_gpa << '\n';
+    }
+#endif
 }

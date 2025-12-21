@@ -27,7 +27,7 @@ std::vector<math_utils::Point> math_utils::load_numbers(const std::filesystem::p
 
     std::ifstream file(path);
     if (!file)
-        throw std::ios_base::failure("File not found.");
+        throw std::ios_base::failure("File points.txt not found");
 
     double x, y;
     while (file >> x)
