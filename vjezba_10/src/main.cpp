@@ -138,7 +138,6 @@ int main()
     // WARN: STUDENTS.TXT IS A FILE WHERE VALUES ARE SEPERATED WITH WHITESPACE
     //       MAKE SURE THE SURNAME AND NAMES DONT CONTAIN WHITESPACES
 
-    // NOTE: again, exercise contradicts itself by
     {
         using namespace student;
         // 3.A load from .txt file
